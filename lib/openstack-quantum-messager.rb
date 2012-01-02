@@ -1,9 +1,5 @@
+# -*- encoding: utf-8 -*-
+require "httparty"
+require "json"
 require "openstack-quantum-messager/version"
-
-module Openstack
-  module Quantum
-    module Messager
-      # Your code goes here...
-    end
-  end
-end
+require "openstack-quantum-messager/l2l3"

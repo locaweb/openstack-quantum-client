@@ -13,5 +13,7 @@ Gem::Specification.new do |gem|
   gem.files         = Dir["./**/*"].reject {|file| file =~ /\.git|pkg/}
   gem.require_paths = ["lib"]
 
+  gem.add_dependency "httparty"
   gem.add_development_dependency "rspec"
+  gem.add_development_dependency "fakeweb"
 end
