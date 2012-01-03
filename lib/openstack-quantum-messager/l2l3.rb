@@ -11,29 +11,53 @@ module Openstack
         @quantum_url = "#{config[:url]}/v1.0/extensions/l2l3/tenants/#{config[:tenant]}"
       end
 
-      def add_dhcp(name, address)
-        dhcp_info = {"dhcp" => {"name" => name, "address" => address}}
-        post_to_quantum(dhcp_info, "/dhcps.json")
+      def dhcp
+        @dhcp ||= Dhcp.new(@quantum_url)
       end
 
-      def add_dhcp_entry(address, mac)
-        dhcp_entry_info = {"dhcp_entry" => {"mac" => mac, "address" => address}}
-        post_to_quantum(dhcp_entry_info, "/dhcp_entries.json")
+      def dhcp_entry
+        @dhcp_entry ||= DhcpEntry.new(@quantum_url)
       end
 
-      def list_dhcp
-        response = HTTParty.get(@quantum_url + "/dhcps.json")
-        JSON.parse(response.body)["dhcps"] if response
-      end
-
-      private
-      def post_to_quantum(info, url_suffix)
+      protected
+      def post_to_quantum(post_url, info)
         response = HTTParty.post(
-          @quantum_url + url_suffix,
+          post_url,
           :body => info.to_json,
           :headers => {"Content-Type" => "application/json"}
         )
         JSON.parse(response.body) if response
+      end
+    end
+
+    class Dhcp < L2l3
+      def initialize(quantum_url)
+        @quantum_url = "#{quantum_url}/dhcps.json"
+      end
+
+      def create(name, address)
+        post_to_quantum(
+          @quantum_url,
+          {"dhcp" => {"name" => name, "address" => address}}
+        )
+      end
+
+      def list
+        response = HTTParty.get(@quantum_url)
+        JSON.parse(response.body)["dhcps"] if response
+      end
+    end
+
+    class DhcpEntry < L2l3
+      def initialize(quantum_url)
+        @quantum_url = "#{quantum_url}/dhcp_entries.json"
+      end
+
+      def create(address, mac)
+        post_to_quantum(
+          @quantum_url,
+          {"dhcp_entry" => {"mac" => mac, "address" => address}}
+        )
       end
     end
   end

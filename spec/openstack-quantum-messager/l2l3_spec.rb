@@ -19,17 +19,17 @@ describe Openstack::QuantumMessager::L2l3 do
         :body => @dhcp_info.to_json,
         :headers => {"Content-Type" => "application/json"}
       )
-      @messager.add_dhcp("dhcp1", "192.168.1.1")
+      @messager.dhcp.create("dhcp1", "192.168.1.1")
     end
 
     it "should return the dhcp uuid" do
-      dhcp_info = @messager.add_dhcp("dhcp1", "192.168.1.1")
+      dhcp_info = @messager.dhcp.create("dhcp1", "192.168.1.1")
       dhcp_info.should_not be_nil
       dhcp_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
     end
 
     it "should return a dhcps array" do
-      dhcp_info = @messager.list_dhcp
+      dhcp_info = @messager.dhcp.list
       dhcp_info.should_not be_nil
       dhcp_info.should be_instance_of(Array)
     end
@@ -48,11 +48,11 @@ describe Openstack::QuantumMessager::L2l3 do
         :body => @dhcp_entry_info.to_json,
         :headers => {"Content-Type" => "application/json"}
       )
-      @messager.add_dhcp_entry("192.168.3.4", "a4:ba:db:05:6e:f8")
+      @messager.dhcp_entry.create("192.168.3.4", "a4:ba:db:05:6e:f8")
     end
 
     it "should return the dhcp uuid" do
-      dhcp_entry_info = @messager.add_dhcp_entry("dhcp1", "192.168.3.4")
+      dhcp_entry_info = @messager.dhcp.create("dhcp1", "192.168.3.4")
       dhcp_entry_info.should_not be_nil
       dhcp_entry_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
     end
