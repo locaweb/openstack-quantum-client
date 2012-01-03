@@ -23,7 +23,7 @@ module Openstack
 
       def list_dhcp
         response = HTTParty.get(@quantum_url + "/dhcps.json")
-        JSON.parse(response.body) if response
+        JSON.parse(response.body)["dhcps"] if response
       end
 
       private

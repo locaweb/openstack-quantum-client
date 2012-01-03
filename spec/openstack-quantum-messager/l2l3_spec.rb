@@ -31,7 +31,7 @@ describe Openstack::QuantumMessager::L2l3 do
     it "should return a dhcps array" do
       dhcp_info = @messager.list_dhcp
       dhcp_info.should_not be_nil
-      dhcp_info["dhcps"].should be_instance_of(Array)
+      dhcp_info.should be_instance_of(Array)
     end
 
   end
