@@ -2,6 +2,8 @@
 module Openstack
   module QuantumMessager
     class L2l3
+      attr_reader :quantum_url
+
       # The initialize l2l3 class should be initialized passing a hash
       # with url and tenant:
       # Example:
@@ -27,37 +29,6 @@ module Openstack
           :headers => {"Content-Type" => "application/json"}
         )
         JSON.parse(response.body) if response
-      end
-    end
-
-    class Dhcp < L2l3
-      def initialize(quantum_url)
-        @quantum_url = "#{quantum_url}/dhcps.json"
-      end
-
-      def create(name, address)
-        post_to_quantum(
-          @quantum_url,
-          {"dhcp" => {"name" => name, "address" => address}}
-        )
-      end
-
-      def list
-        response = HTTParty.get(@quantum_url)
-        JSON.parse(response.body)["dhcps"] if response
-      end
-    end
-
-    class DhcpEntry < L2l3
-      def initialize(quantum_url)
-        @quantum_url = "#{quantum_url}/dhcp_entries.json"
-      end
-
-      def create(address, mac)
-        post_to_quantum(
-          @quantum_url,
-          {"dhcp_entry" => {"mac" => mac, "address" => address}}
-        )
       end
     end
   end
