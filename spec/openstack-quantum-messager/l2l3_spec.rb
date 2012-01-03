@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Openstack::QuantumMessager::L2l3 do
   before do
-    @quantum_url = "http://localhost:9696/v1.0/extensions/l2l3/tenants/XYZ"
-    @messager = Openstack::QuantumMessager::L2l3.new(@quantum_url)
+    config = {:url => "http://localhost:9696", :tenant => "XYZ"}
+    @messager = Openstack::QuantumMessager::L2l3.new(config)
   end
 
   context "when dealing with dhcps" do
@@ -26,6 +26,12 @@ describe Openstack::QuantumMessager::L2l3 do
       dhcp_info = @messager.add_dhcp("dhcp1", "192.168.1.1")
       dhcp_info.should_not be_nil
       JSON.parse(dhcp_info)["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+    end
+
+    it "should return a dhcps array" do
+      dhcp_info = @messager.list_dhcp
+      dhcp_info.should_not be_nil
+      JSON.parse(dhcp_info)["dhcps"].should be_instance_of(Array)
     end
 
   end
