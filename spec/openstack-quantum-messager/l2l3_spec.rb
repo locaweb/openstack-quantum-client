@@ -25,13 +25,13 @@ describe Openstack::QuantumMessager::L2l3 do
     it "should return the dhcp uuid" do
       dhcp_info = @messager.add_dhcp("dhcp1", "192.168.1.1")
       dhcp_info.should_not be_nil
-      JSON.parse(dhcp_info)["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+      dhcp_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
     end
 
     it "should return a dhcps array" do
       dhcp_info = @messager.list_dhcp
       dhcp_info.should_not be_nil
-      JSON.parse(dhcp_info)["dhcps"].should be_instance_of(Array)
+      dhcp_info["dhcps"].should be_instance_of(Array)
     end
 
   end
@@ -54,7 +54,7 @@ describe Openstack::QuantumMessager::L2l3 do
     it "should return the dhcp uuid" do
       dhcp_entry_info = @messager.add_dhcp_entry("dhcp1", "192.168.3.4")
       dhcp_entry_info.should_not be_nil
-      JSON.parse(dhcp_entry_info)["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+      dhcp_entry_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
     end
 
   end

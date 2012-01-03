@@ -23,7 +23,7 @@ module Openstack
 
       def list_dhcp
         response = HTTParty.get(@quantum_url + "/dhcps.json")
-        response.body if response
+        JSON.parse(response.body) if response
       end
 
       private
@@ -33,7 +33,7 @@ module Openstack
           :body => info.to_json,
           :headers => {"Content-Type" => "application/json"}
         )
-        response.body if response
+        JSON.parse(response.body) if response
       end
     end
   end
