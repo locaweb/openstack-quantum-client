@@ -13,6 +13,10 @@ module Openstack
         @quantum_url = "#{config[:url]}/v1.0/extensions/l2l3/tenants/#{config[:tenant]}"
       end
 
+      def firewall
+        @firewall ||= Firewall.new(@quantum_url)
+      end
+
       def dhcp
         @dhcp ||= Dhcp.new(@quantum_url)
       end
