@@ -17,6 +17,10 @@ module Openstack
         @firewall ||= Firewall.new(@quantum_url)
       end
 
+      def filter_rule
+        @filter_rule ||= FilterRule.new(@quantum_url)
+      end
+
       def dhcp
         @dhcp ||= Dhcp.new(@quantum_url)
       end
