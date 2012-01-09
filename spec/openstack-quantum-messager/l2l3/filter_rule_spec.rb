@@ -30,4 +30,11 @@ describe Openstack::QuantumMessager::FilterRule do
     filter_rule_info.should_not be_nil
     filter_rule_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
   end
+
+  it "should delete the filter_rule by uuid" do
+    pending
+    filter_rule_info = @messager.filter_rule.delete("0d395fd5-b44c-44d0-98b9-786415997a0c")
+    filter_rule_info.should_not be_nil
+    filter_rule_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+  end
 end
