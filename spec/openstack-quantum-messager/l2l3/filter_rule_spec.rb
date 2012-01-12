@@ -32,9 +32,9 @@ describe Openstack::QuantumMessager::FilterRule do
   end
 
   it "should delete the filter_rule by uuid" do
-    pending
-    filter_rule_info = @messager.filter_rule.delete("0d395fd5-b44c-44d0-98b9-786415997a0c")
+    response = @messager.filter_rule.create("192.168.1.1/32","10.0.0.1",22,"tcp")
+    filter_rule_info = @messager.filter_rule.delete(response["id"])
     filter_rule_info.should_not be_nil
-    filter_rule_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
+    filter_rule_info["id"].should match(response["id"])
   end
 end

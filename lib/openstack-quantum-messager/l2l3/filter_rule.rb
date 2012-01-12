@@ -7,6 +7,7 @@ module Openstack
       end
 
       def create(src, dst, dst_port, proto)
+        full_url = "#{@quantum_url}/filter_rules.json"
         post_hash = {
           "filter_rule" => {
             "src"       => src,
@@ -19,12 +20,8 @@ module Openstack
       end
 
       def delete(id)
-        post_to_quantum(full_url(:resource => id.to_s))
-      end
-
-      private
-      def full_url(with={:resource => "filter_rules"})
-        "#{@quantum_url}/#{with[:resource]}.json"
+        full_url = "#{@quantum_url}/filter_rules/%s.json"
+        HTTParty.delete(full_url % id.to_s)
       end
     end
   end
