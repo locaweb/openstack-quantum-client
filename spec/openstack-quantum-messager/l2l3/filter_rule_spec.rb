@@ -31,10 +31,28 @@ describe Openstack::QuantumMessager::FilterRule do
     filter_rule_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
   end
 
-  it "should delete the filter_rule by uuid" do
-    response = @messager.filter_rule.create("192.168.1.1/32","10.0.0.1",22,"tcp")
-    filter_rule_info = @messager.filter_rule.delete(response["id"])
-    filter_rule_info.should_not be_nil
-    filter_rule_info["id"].should match(response["id"])
+  context "when using rule uuid" do
+    before do
+      @rule = @messager.filter_rule.create("192.168.1.1/32","10.0.0.1",22,"tcp")
+    end
+
+    it "should delete the filter_rule by uuid" do
+      filter_rule_info = @messager.filter_rule.delete(@rule["id"])
+      filter_rule_info.should_not be_nil
+      filter_rule_info["id"].should match(@rule["id"])
+    end
+
+    it "should get the filter_rule by uuid" do
+      filter_rule_info = @messager.filter_rule.show(@rule["id"])
+      filter_rule_info.should_not be_nil
+      filter_rule_info["id"].should match(@rule["id"])
+      filter_rule_info["src"].should match(@rule["src"])
+    end
+
+    it "should get the filter_rule status" do
+      pending "The filter rule should return its status"
+      filter_rule_info = @messager.filter_rule.show(@rule["id"])
+      filter_rule_info["status"].should match("INSERTING")
+    end
   end
 end
