@@ -8,7 +8,7 @@ describe Openstack::QuantumMessager::L2l3 do
   end
 
   it "should generate the correct url" do
-    @messager.quantum_url.should eql("http://localhost:9696/v1.0/extensions/l2l3/tenants/XYZ")
+    @messager.quantum_extension_url.should eql("http://localhost:9696/v1.0/extensions/l2l3/tenants/XYZ")
   end
 
   it "should create a new instance of dhcp" do
