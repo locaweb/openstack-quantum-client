@@ -24,7 +24,7 @@ module Openstack
       end
 
       def filtered_range
-        @filtered_range ||= FilteredRange.new(@quantum_url)
+        @filtered_range ||= FilteredRange.new(@quantum_extension_url)
       end
 
       def filter_rule
@@ -40,11 +40,11 @@ module Openstack
       end
 
       def port
-        @port ||= Port.new(@quantum_url)
+        @port ||= Port.new(@quantum_url, @quantum_extension_url)
       end
 
       def network
-        @network ||= Network.new(@quantum_url)
+        @network ||= Network.new(@quantum_url, @quantum_extension_url)
       end
 
       protected

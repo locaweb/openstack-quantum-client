@@ -2,8 +2,9 @@
 module Openstack
   module QuantumMessager
     class Port < L2l3
-      def initialize(quantum_url)
+      def initialize(quantum_url, quantum_extension_url)
         @quantum_url = quantum_url
+        @quantum_extension_url = quantum_extension_url
       end
 
       def create(network_id)
