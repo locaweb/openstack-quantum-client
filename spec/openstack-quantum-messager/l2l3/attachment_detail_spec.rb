@@ -23,4 +23,18 @@ describe Openstack::QuantumMessager::AttachmentDetail do
     attachment_detail.should_not be_nil
     attachment_detail["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
   end
+
+  it "should delete the attachment_detail" do
+    attachment_detail = @messager.attachment_detail.create("a4:ba:db:05:6e:f8", "192.168.3.4")
+    response_code = @messager.attachment_detail.delete(attachment_detail["id"]).code
+    response_code.should == 200
+  end
+
+  it "should list the attachment_details" do
+    mac = "a4:ba:db:05:6e:f9"
+    @messager.attachment_detail.create(mac, "192.168.3.4")
+    attachment_details = @messager.attachment_detail.list(:attachment => mac)["attachment_details"]
+    attachment_details.size.should == 1
+    attachment_details.first["interface_id"].should == mac
+  end
 end
