@@ -18,6 +18,10 @@ module Openstack
         response.code < 300
       end
 
+      def delete(network_id, id)
+        HTTParty.delete("#{@quantum_url}/networks/#{network_id}/ports/#{id}.json")
+      end
+
       def list(network_id, filters={})
         HTTParty.get("#{@quantum_extension_url}/networks/#{network_id}/ports.json", :query => filters)
       end

@@ -24,12 +24,17 @@ describe Openstack::QuantumMessager::Port do
     port_info.should_not be_nil
     port_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
   end
-  
+
   it "should attach an interface" do
     mac = "4a:94:c4:98:38:57"
     port_info = @messager.port.create(@network_id)["port"]
     @messager.port.attach(@network_id, port_info["id"], mac).should be_true
     new_port_info = @messager.port.list(@network_id, :attachment => mac)["ports"].first
     new_port_info["id"].should == port_info["id"]
+  end
+
+  it "should delete the port" do
+    port_info = @messager.port.create(@network_id)["port"]
+    @messager.port.delete(@network_id, port_info["id"]).code.should == 204
   end
 end
