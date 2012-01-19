@@ -6,6 +6,10 @@ module Openstack
         @quantum_url = "#{quantum_url}/attachment_details.json"
       end
 
+      def list(filters={})
+        HTTParty.get("#{@quantum_extension_url}/networks.json", :query => filters)
+      end
+
       def create(mac, ip)
         post_to_quantum(
           @quantum_url,

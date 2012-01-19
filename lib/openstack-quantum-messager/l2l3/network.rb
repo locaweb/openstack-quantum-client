@@ -12,7 +12,7 @@ module Openstack
         post_to_quantum(full_url, {"network" => {"name" => name}})
       end
 
-      def list(filters)
+      def list(filters={})
         HTTParty.get("#{@quantum_extension_url}/networks.json", :query => filters)
       end
 

@@ -20,11 +20,11 @@ module Openstack
       end
 
       def delete(id)
-        HTTParty.delete("#{@quantum_url}/filter_rules/#{id.to_s}.json" )
+        HTTParty.delete("#{@quantum_url}/filter_rules/#{id}.json" )
       end
 
       def show(id)
-        HTTParty.get("#{@quantum_url}/filter_rules/#{id.to_s}.json" )
+        HTTParty.get("#{@quantum_url}/filter_rules/#{id}.json" )
       end
     end
   end

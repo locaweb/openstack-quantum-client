@@ -29,5 +29,6 @@ describe Openstack::QuantumMessager::Port do
     mac = "4a:94:c4:98:38:57"
     port_info = @messager.port.create(@network_id)["port"]
     @messager.port.attach(@network_id, port_info["id"], mac).should be_true
+    @messager.port.list(@network_id, :attachment => mac)["ports"].should_not be_empty
   end
 end
