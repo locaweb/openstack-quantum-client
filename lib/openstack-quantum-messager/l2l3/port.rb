@@ -12,9 +12,15 @@ module Openstack
         post_to_quantum(full_url, nil)
       end
 
-      def attach(network_id, id, interface_id)
+      def plug(network_id, id, interface_id)
         full_url = "#{@quantum_url}/networks/#{network_id}/ports/#{id}/attachment.json"
         response = put_to_quantum(full_url, {"attachment" => {"id" => interface_id}})
+        response.code < 300
+      end
+
+      def unplug(network_id, id)
+        full_url = "#{@quantum_url}/networks/#{network_id}/ports/#{id}/attachment.json"
+        response = HTTParty.delete(full_url)
         response.code < 300
       end
 
