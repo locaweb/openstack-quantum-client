@@ -19,6 +19,14 @@ module Openstack
       def show(id)
         HTTParty.get("#{@quantum_url}/networks/#{id}.json")
       end
+
+      def find_or_create_by_name(network_name)
+        networks = list(:name => network_name)
+        if networks.empty?
+          create(network_name)
+        end
+        list(:name => network_name)["networks"].last
+      end
     end
   end
 end

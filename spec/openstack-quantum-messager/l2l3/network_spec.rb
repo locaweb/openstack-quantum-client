@@ -23,7 +23,7 @@ describe Openstack::QuantumMessager::Network do
     network_info.should_not be_nil
     network_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
   end
-  
+
   it "should list networks filtered" do
     @messager.network.create("network1")
     @messager.network.create("network2")
@@ -31,5 +31,11 @@ describe Openstack::QuantumMessager::Network do
     network_list.size.should == 1
     network_info = @messager.network.show(network_list.first["id"])["network"]
     network_info["name"].should == "network2"
+  end
+
+  it "should return the last network created by name" do
+    network_id = @messager.network.create("network1")
+    network = @messager.network.find_or_create_by_name("network1")
+    network["id"].should eql(network_id["network"]["id"])
   end
 end
