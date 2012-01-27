@@ -40,11 +40,11 @@ module Openstack
       end
 
       def port
-        @port ||= Port.new(@quantum_url, @quantum_extension_url)
+        @port ||= Port.new(@quantum_url)
       end
 
       def network
-        @network ||= Network.new(@quantum_url, @quantum_extension_url)
+        @network ||= Network.new(@quantum_url)
       end
 
       protected

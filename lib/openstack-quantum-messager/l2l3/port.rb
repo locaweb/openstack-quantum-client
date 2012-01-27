@@ -2,9 +2,8 @@
 module Openstack
   module QuantumMessager
     class Port < L2l3
-      def initialize(quantum_url, quantum_extension_url)
+      def initialize(quantum_url)
         @quantum_url = quantum_url
-        @quantum_extension_url = quantum_extension_url
       end
 
       def create(network_id)
@@ -29,7 +28,7 @@ module Openstack
       end
 
       def list(network_id, filters={})
-        HTTParty.get("#{@quantum_extension_url}/networks/#{network_id}/ports.json", :query => filters)
+        HTTParty.get("#{@quantum_url}/networks/#{network_id}/ports.json", :query => filters)
       end
     end
   end
