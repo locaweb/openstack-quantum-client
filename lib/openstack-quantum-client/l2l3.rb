@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 module Openstack
-  module QuantumMessager
+  module QuantumClient
     class L2l3
       attr_reader :quantum_url
       attr_reader :quantum_extension_url

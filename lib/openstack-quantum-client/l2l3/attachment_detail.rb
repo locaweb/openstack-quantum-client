@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 module Openstack
-  module QuantumMessager
+  module QuantumClient
     class AttachmentDetail < L2l3
       def initialize(quantum_extension_url)
         @quantum_extension_url = quantum_extension_url
