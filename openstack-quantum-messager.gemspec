@@ -4,8 +4,8 @@ require File.expand_path('../lib/openstack-quantum-messager/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name          = "openstack-quantum-messager"
   gem.version       = Openstack::QuantumMessager::VERSION
-  gem.authors       = ["PotHix"]
-  gem.email         = ["pothix@pothix.com"]
+  gem.authors       = ["PotHix", "Morellon"]
+  gem.email         = ["pothix@pothix.com", "morellon@gmail.com"]
   gem.description   = %q{A simple gem to deal with openstack quantum}
   gem.summary       = %q{The main objective of this gem is to deal easily with openstack quantum}
   gem.homepage      = "http://www.locaweb.com.br"
