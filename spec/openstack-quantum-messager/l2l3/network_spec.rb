@@ -38,4 +38,10 @@ describe Openstack::QuantumMessager::Network do
     network = @messager.network.find_or_create_by_name("network1")
     network["id"].should eql(network_id["network"]["id"])
   end
+
+  it "should create a network if can't find it" do
+    network = "new_network"
+    @messager.network.list(:name => network)["networks"].should be_empty
+    @messager.network.find_or_create_by_name(network).should_not be_nil
+  end
 end
