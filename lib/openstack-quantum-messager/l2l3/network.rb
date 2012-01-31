@@ -20,7 +20,7 @@ module Openstack
       end
 
       def find_or_create_by_name(network_name)
-        networks = list(:name => network_name)
+        networks = list(:name => network_name)["networks"]
         if networks.empty?
           create(network_name)
         end
