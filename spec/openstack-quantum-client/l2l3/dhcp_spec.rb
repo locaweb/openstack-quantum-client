@@ -29,4 +29,10 @@ describe Openstack::QuantumClient::Dhcp do
     dhcp_info.should_not be_nil
     dhcp_info.should be_instance_of(Array)
   end
+
+  it "should reload the dhcp" do
+    dhcp_info = @client.dhcp.create("dhcp1", "192.168.1.1")
+    response = @client.dhcp.reload(dhcp_info["id"])
+    response.code.should < 400
+  end
 end

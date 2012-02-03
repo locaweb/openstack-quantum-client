@@ -23,4 +23,18 @@ describe Openstack::QuantumClient::DhcpEntry do
     dhcp_entry_info.should_not be_nil
     dhcp_entry_info["id"].should match(/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/)
   end
+
+  it "should list the dhcp entries" do
+    vm = "machine0002"
+    dhcp_entry_info = @client.dhcp_entry.create("dhcp1", "192.168.3.4", vm).to_hash
+    @client.dhcp_entry.list["dhcp_entries"].should_not be_empty
+    @client.dhcp_entry.list(:name => "unknown")["dhcp_entries"].should be_empty
+    @client.dhcp_entry.list(:name => vm)["dhcp_entries"].first.should == dhcp_entry_info
+  end
+
+  it "should delete a dhcp entry" do
+    dhcp_entry_info = @client.dhcp_entry.create("dhcp1", "192.168.3.4", "machine0001")
+    response = @client.dhcp_entry.delete(dhcp_entry_info["id"])
+    response.code.should < 400
+  end
 end
