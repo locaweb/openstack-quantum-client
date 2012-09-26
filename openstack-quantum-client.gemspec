@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["pothix@pothix.com", "morellon@gmail.com"]
   gem.description   = %q{A simple gem to deal with openstack quantum}
   gem.summary       = %q{The main objective of this gem is to deal easily with openstack quantum}
-  gem.homepage      = "http://www.locaweb.com.br"
+  gem.homepage      = "http://github.com/locaweb/openstack-quantum-client"
 
   gem.files         = Dir["./**/*"].reject {|file| file =~ /\.git|pkg/}
   gem.require_paths = ["lib"]
